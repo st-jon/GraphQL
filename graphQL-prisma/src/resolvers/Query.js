@@ -1,46 +1,42 @@
 const Query = {
-    posts( parent, args, {db, prisma}, info ) {
-        return prisma.query.posts(null, info)
-        // if(!args.query) {
-        //     return db.posts
-        // }
-        // return db.posts.filter(post => {
-        //     return  db.post.title.toLowerCase().includes(args.query.toLowerCase())
-        //         ||  db.post.body.toLowerCase().includes(args.query.toLowerCase())
-        // })
-    },
-    users( parent, args, {db, prisma}, info ) {
-        return prisma.query.users(null, info)
-        // if(!args.query) {
-        //     return db.users
-        // }
-        // return db.users.filter(user => {
-        //     return db.user.name.toLowerCase().includes(args.query.toLowerCase())
-        // })
-        
-    },
-    comments( parent, args, {db}, info ) {
-        if(!args.query) {
-            return db.comments
+    users( parent, args, {prisma}, info ) {
+        const userQuery = {}
+        if (args.query) {
+            userQuery.where = {
+                OR: [{
+                    name_contains: args.query
+                }, {
+                    email_contains: args.query
+                }]
+                
+            }
         }
-        return db.comments.filter(comment => {
-            return db.comment.text.toLowerCase().includes(args.query.toLowerCase())
-        })
+        return prisma.query.users(userQuery, info)
     },
-    me() {
-        return {
-            id: '123ABC',
-            name: 'chris',
-            email: 'c.johanny@gmail.com',
+    posts( parent, args, {prisma}, info ) {
+        const postQuery = {}
+        if (args.query) {
+            postQuery.where = {
+                OR: [{
+                    title_contains: args.query
+                }, {
+                    body_contains: args.query
+                }]
+                
+            }
         }
+        return prisma.query.posts(postQuery, info)
     },
-    post() {
-        return {
-            id: 'JHQHDHJQDI',
-            title: 'New graphql logic for dummies',
-            published: false
+    comments( parent, args, {prisma}, info ) {
+        const commentQuery = {}
+        if (args.query) {
+            commentQuery.where = {
+                text_contains: args.query
+            } 
         }
-    }
+        return prisma.query.comments(commentQuery, info)
+
+    },
 }
 
 export default Query
