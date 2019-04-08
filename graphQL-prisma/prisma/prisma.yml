@@ -1,4 +1,4 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 # endpoint: https://cjohanny-blog-app-163f30268c.herokuapp.com/cjohanny-blog-app/prod
 datamodel: datamodel.prisma
-secret: AZJDH23847283BADSdsjfhshs9128312nsbdqsAUAIZB
+secret: ${env:PRISMA_SECRET}
