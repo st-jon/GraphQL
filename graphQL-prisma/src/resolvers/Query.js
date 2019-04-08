@@ -2,7 +2,12 @@ import getUserId from '../utils/getUserId'
 
 const Query = {
     users( parent, args, {prisma}, info ) {
-        const userQuery = {}
+        const userQuery = {
+            first: args.first,
+            skip: args.skip,
+            after: args.after,
+            orderBy: args.orderBy,
+        }
         if (args.query) {
             userQuery.where = {
                 OR: [{
@@ -17,6 +22,10 @@ const Query = {
         const userId = getUserId(request)
 
         const postQuery = {
+            first: args.first,
+            skip: args.skip,
+            after: args.after,
+            orderBy: args.orderBy,
             where: {
                 author: {
                     id: userId
@@ -36,6 +45,10 @@ const Query = {
     },
     posts( parent, args, {prisma}, info ) {
         const postQuery = {
+            first: args.first,
+            skip: args.skip,
+            after: args.after,
+            orderBy: args.orderBy,
             where: {
                 published: true
             }
@@ -50,7 +63,12 @@ const Query = {
         return prisma.query.posts(postQuery, info)
     },
     comments( parent, args, {prisma}, info ) {
-        const commentQuery = {}
+        const commentQuery = {
+            first: args.first,
+            skip: args.skip,
+            after: args.after,
+            orderBy: args.orderBy,
+        }
         if (args.query) {
             commentQuery.where = {
                 text_contains: args.query
