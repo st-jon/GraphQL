@@ -1,3 +1,5 @@
 node_modules
 .DS_Store
 graphQL-prisma/prisma/docker-compose.yml
+graphQL-prisma/config
+graphQL-prisma/dist
