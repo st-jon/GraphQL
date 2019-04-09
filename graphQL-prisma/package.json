@@ -7,15 +7,24 @@
     "start": "node dist/index.js",
     "heroku-postbuild": "babel src --out-dir dist --copy-files",
     "dev": "env-cmd ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "env-cmd ./config/test.env jest --watch --verbose",
     "get-schema": "graphql get-schema -p prisma --dotenv ./config/dev.env"
+  },
+  "jest": {
+    "globalSetup": "./tests/jest/globalSetup.js",
+    "globalTeardown": "./tests/jest/globalTearDown.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "apollo-boost": "^0.3.1",
+    "babel-register": "^6.26.0",
     "bcryptjs": "^2.4.3",
+    "cross-fetch": "^3.0.2",
     "env-cmd": "^8.0.2",
+    "graphql": "^14.2.1",
     "graphql-cli": "^3.0.11",
     "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.1",
@@ -25,6 +34,7 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.4"
+    "@babel/preset-env": "^7.3.4",
+    "jest": "^24.7.1"
   }
 }
